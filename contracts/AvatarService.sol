@@ -13,7 +13,7 @@ interface IERC1155 {
     function balanceOf(address account, uint256 id) external view returns (uint256);
 }
 
-contract EthereumAvatarService {
+contract AvatarService {
     struct Avatar {
         address tokenAddress;
         uint256 tokenId;

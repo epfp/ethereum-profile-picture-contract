@@ -6,7 +6,7 @@ describe("ProfilePictureService", function () {
     async function deployFixture() {
         const [owner, client] = await ethers.getSigners();
 
-        const avatarService = await ethers.deployContract("EthereumAvatarService");
+        const avatarService = await ethers.deployContract("AvatarService");
         const erc721Mock = await ethers.deployContract("ERC721Mock");
         const erc1155Mock = await ethers.deployContract("ERC1155Mock");
 
