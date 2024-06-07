@@ -5,11 +5,11 @@ interface IERC165 {
     function supportsInterface(bytes4 interfaceId) external view returns (bool);
 }
 
-interface IERC721 is IERC165 {
+interface IERC721 {
     function ownerOf(uint256 tokenId) external view returns (address);
 }
 
-interface IERC1155 is IERC165 {
+interface IERC1155 {
     function balanceOf(address account, uint256 id) external view returns (uint256);
 }
 
