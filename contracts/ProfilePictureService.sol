@@ -13,39 +13,39 @@ interface IERC1155 {
     function balanceOf(address account, uint256 id) external view returns (uint256);
 }
 
-contract ProfilePictureService {
-    struct ProfilePicture {
+contract EthereumAvatarService {
+    struct Avatar {
         address tokenAddress;
         uint256 tokenId;
     }
 
-    struct ProfilePictureInfo {
-        ProfilePicture profilePicture;
+    struct AvatarInfo {
+        Avatar avatar;
         bool owned;
     }
 
-    mapping(address => ProfilePicture) public profilePictures;
+    mapping(address => Avatar) public avatars;
 
-    event ProfilePictureSet(address indexed walletAddress, address indexed tokenAddress, uint256 indexed tokenId);
+    event AvatarSet(address indexed walletAddress, address indexed tokenAddress, uint256 indexed tokenId);
 
-    function setProfilePicture(address tokenAddress, uint256 tokenId) external {
+    function setAvatar(address tokenAddress, uint256 tokenId) external {
         require(isTokenOwner(msg.sender, tokenAddress, tokenId), "Caller is not the owner of the NFT");
 
-        profilePictures[msg.sender] = ProfilePicture(tokenAddress, tokenId);
+        avatars[msg.sender] = Avatar(tokenAddress, tokenId);
 
-        emit ProfilePictureSet(msg.sender, tokenAddress, tokenId);
+        emit AvatarSet(msg.sender, tokenAddress, tokenId);
     }
 
-    function getProfilePicture(address walletAddress) external view returns (ProfilePicture memory) {
-        return profilePictures[walletAddress];
+    function getAvatar(address walletAddress) external view returns (Avatar memory) {
+        return avatars[walletAddress];
     }
 
-    function getProfilePictureInfo(address walletAddress) external view returns (ProfilePictureInfo memory) {
-        ProfilePicture memory profilePicture = profilePictures[walletAddress];
+    function getAvatarInfo(address walletAddress) external view returns (AvatarInfo memory) {
+        Avatar memory avatar = avatars[walletAddress];
 
-        bool owned = isTokenOwner(walletAddress, profilePicture.tokenAddress, profilePicture.tokenId);
+        bool owned = isTokenOwner(walletAddress, avatar.tokenAddress, avatar.tokenId);
 
-        return ProfilePictureInfo(profilePicture, owned);
+        return AvatarInfo(avatar, owned);
     }
 
     function isTokenOwner(address walletAddress, address tokenAddress, uint256 tokenId) internal view returns (bool) {
