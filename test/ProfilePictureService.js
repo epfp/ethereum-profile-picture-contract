@@ -52,7 +52,7 @@ describe("ProfilePictureService", function () {
         expect(balance).to.equal(1);
     });
 
-    it("Should set and get profile picture with ERC721 token", async function () {
+    it("Should set and get avatar with ERC721 token", async function () {
         const {
             avatarService,
             erc721Mock,
@@ -72,7 +72,7 @@ describe("ProfilePictureService", function () {
         expect(profilePictureInfo[0].tokenId).to.equal(1);
     });
 
-    it("Should return owned as false when set profile picture with ERC721 token is no longer owned", async function () {
+    it("Should return owned as false when set avatar with ERC721 token is no longer owned", async function () {
         const {
             avatarService,
             erc721Mock,
@@ -99,7 +99,7 @@ describe("ProfilePictureService", function () {
         expect(profilePictureInfo[1]).to.equal(false);
     });
 
-    it("Should set and get profile picture with ERC1155 token", async function () {
+    it("Should set and get avatar with ERC1155 token", async function () {
         const {
             avatarService,
             erc1155Mock,
@@ -119,7 +119,7 @@ describe("ProfilePictureService", function () {
         expect(profilePictureInfo[0].tokenId).to.equal(1);
     });
 
-    it("Should return owned as false when set profile picture with ERC1155 token is no longer owned", async function () {
+    it("Should return owned as false when set avatar with ERC1155 token is no longer owned", async function () {
         const {
             avatarService,
             erc1155Mock,
@@ -146,7 +146,31 @@ describe("ProfilePictureService", function () {
         expect(profilePictureInfo[1]).to.equal(false);
     });
 
-    it("Should return zero address as profile picture when none set", async function () {
+    it("Should set zero address as avatar", async function () {
+        const {
+            avatarService,
+            erc1155Mock,
+            client,
+        } = await loadFixture(deployFixture);
+
+        await erc1155Mock.mint(client.address, 1, 1);
+
+        await avatarService
+            .connect(client)
+            .setAvatar(erc1155Mock, 1);
+
+        await avatarService
+            .connect(client)
+            .setAvatar(ethers.ZeroAddress, 23);
+
+        const profilePictureInfo = await avatarService.getAvatarInfo(client.address);
+
+        expect(profilePictureInfo[0].tokenAddress).to.equal(ethers.ZeroAddress);
+        expect(profilePictureInfo[0].tokenId).to.equal(23);
+        expect(profilePictureInfo[1]).to.equal(true);
+    });
+
+    it("Should return zero address as avatar when none set", async function () {
         const {
             avatarService,
             client
