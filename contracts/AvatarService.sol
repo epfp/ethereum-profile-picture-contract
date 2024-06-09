@@ -29,6 +29,10 @@ contract AvatarService {
     event AvatarSet(address indexed walletAddress, address indexed tokenAddress, uint256 indexed tokenId);
 
     function setAvatar(address tokenAddress, uint256 tokenId) external {
+        Avatar memory currentAvatar = avatars[msg.sender];
+
+        require(!(currentAvatar.tokenAddress == tokenAddress && currentAvatar.tokenId == tokenId), "Avatar is already set");
+
         require(isTokenOwner(msg.sender, tokenAddress, tokenId), "Caller is not the owner of the NFT");
 
         avatars[msg.sender] = Avatar(tokenAddress, tokenId);

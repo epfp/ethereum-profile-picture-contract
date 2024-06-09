@@ -248,4 +248,17 @@ describe("ProfilePictureService", function () {
             .to.emit(avatarService, 'AvatarSet')
             .withArgs(client.address, erc721MockAddress, 1);
     });
+
+    it("Should revert if set avatar is the same as current", async function () {
+        const {
+            avatarService,
+            client,
+        } = await loadFixture(deployFixture);
+
+        await expect(
+            avatarService
+                .connect(client)
+                .setAvatar(ethers.ZeroAddress, 0)
+        ).to.be.revertedWith("Avatar is already set");
+    });
 });
