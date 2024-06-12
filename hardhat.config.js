@@ -3,6 +3,7 @@ require("@nomicfoundation/hardhat-toolbox");
 const { vars } = require("hardhat/config");
 
 const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY");
+const POLYGONSCAN_API_KEY = vars.get("POLYGONSCAN_API_KEY");
 const COINMARKETCAP_API_KEY = vars.get("COINMARKETCAP_API_KEY");
 const ALCHEMY_API_KEY = vars.get("ALCHEMY_API_KEY");
 const SEPOLIA_PRIVATE_KEY = vars.get("SEPOLIA_PRIVATE_KEY");
@@ -30,11 +31,19 @@ module.exports = {
     reportPureAndViewMethods: true
   },
   etherscan: {
-    apiKey: ETHERSCAN_API_KEY
+    apiKey: {
+      mainnet: ETHERSCAN_API_KEY,
+      sepolia: ETHERSCAN_API_KEY,
+      polygon: POLYGONSCAN_API_KEY
+    }
   },
   networks: {
     sepolia: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
+      accounts: [SEPOLIA_PRIVATE_KEY]
+    },
+    polygon: {
+      url: `https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
       accounts: [SEPOLIA_PRIVATE_KEY]
     }
   }

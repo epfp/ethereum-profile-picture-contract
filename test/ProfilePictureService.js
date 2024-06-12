@@ -70,6 +70,8 @@ describe("ProfilePictureService", function () {
 
         expect(profilePictureInfo[0].tokenAddress).to.equal(erc721MockAddress);
         expect(profilePictureInfo[0].tokenId).to.equal(1);
+        expect(profilePictureInfo[1]).to.equal(true);
+        expect(profilePictureInfo[2]).to.equal("testUri/1");
     });
 
     it("Should return owned as false when set avatar with ERC721 token is no longer owned", async function () {
@@ -117,6 +119,8 @@ describe("ProfilePictureService", function () {
 
         expect(profilePictureInfo[0].tokenAddress).to.equal(erc1155MockAddress);
         expect(profilePictureInfo[0].tokenId).to.equal(1);
+        expect(profilePictureInfo[1]).to.equal(true);
+        expect(profilePictureInfo[2]).to.equal("testUri");
     });
 
     it("Should return owned as false when set avatar with ERC1155 token is no longer owned", async function () {

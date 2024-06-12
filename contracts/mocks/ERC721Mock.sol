@@ -9,4 +9,8 @@ contract ERC721Mock is ERC721 {
     function mint(address to, uint256 tokenId) public {
         _mint(to, tokenId);
     }
+
+    function _baseURI() internal pure override returns (string memory) {
+        return "testUri/";
+    }
 }
