@@ -4,6 +4,7 @@ const { vars } = require("hardhat/config");
 
 const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY");
 const POLYGONSCAN_API_KEY = vars.get("POLYGONSCAN_API_KEY");
+const BASESCAN_API_KEY = vars.get("BASESCAN_API_KEY");
 const COINMARKETCAP_API_KEY = vars.get("COINMARKETCAP_API_KEY");
 const ALCHEMY_API_KEY = vars.get("ALCHEMY_API_KEY");
 const SEPOLIA_PRIVATE_KEY = vars.get("SEPOLIA_PRIVATE_KEY");
@@ -34,10 +35,15 @@ module.exports = {
     apiKey: {
       mainnet: ETHERSCAN_API_KEY,
       sepolia: ETHERSCAN_API_KEY,
-      polygon: POLYGONSCAN_API_KEY
+      polygon: POLYGONSCAN_API_KEY,
+      base: BASESCAN_API_KEY
     }
   },
   networks: {
+    mainnet: {
+      url: `https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
+      accounts: [SEPOLIA_PRIVATE_KEY]
+    },
     sepolia: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
       accounts: [SEPOLIA_PRIVATE_KEY]
@@ -45,6 +51,11 @@ module.exports = {
     polygon: {
       url: `https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
       accounts: [SEPOLIA_PRIVATE_KEY]
+    },
+    base: {
+      url: `https://base-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
+      accounts: [SEPOLIA_PRIVATE_KEY],
+      gasPrice: 1000000000
     }
   }
 };
